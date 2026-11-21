@@ -36,6 +36,10 @@ Read `output/to_draft.json` (top 10 per tier). For more context on a channel, re
 Each invite:
 - is 80 words or fewer, with no emojis and no hype words (revolutionary, game-changer, game changing,
   unlock, skyrocket, ultimate, insane, crushing). Avoid quoting a title that contains one of these.
+  If a title contains emojis, quote it **with the emojis removed**. The title check ignores
+  punctuation and symbols, so it still matches.
+- states only what the data shows. Don't claim their referral link is already part of the
+  partner programme, or anything else about their account you haven't seen.
 - names one video they really made, with its title **quoted exactly in straight double quotes**,
   and says something true about it, based on its title or description. Don't invent details.
   Tier 1: a Blotato video. Tier 2: their best topic video. `best_video_title` is a default, so pick another if it fits better.
