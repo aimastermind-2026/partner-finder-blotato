@@ -44,7 +44,8 @@ Each invite:
   and says something true about it, based on its title or description. Don't invent details.
   Tier 1: a Blotato video. Tier 2: their best topic video. `best_video_title` is a default, so pick another if it fits better.
 - **Tier 1:** one line on the partner programme: 50% of each referred customer's first payment.
-  Most Tier 1 creators already use a `blotato.com/?ref=` link. Acknowledge that rather than pitching cold.
+  Existing affiliates (any `blotato.com` link with `?ref=`, `via=`, `fpr=` and similar) are already
+  dropped by `score.py`, so Tier 1 may have fewer than 10 channels. Draft only what's in `to_draft.json`.
 - **Tier 2:** offers a free Blotato account and a ready-made workflow that fits what they already
   teach. The partner programme (50% of referred customers' first payment) is a second line.
 - ends with a soft question, not a hard sell. Sign off `– [Your name], Blotato`.

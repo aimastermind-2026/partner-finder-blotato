@@ -36,6 +36,9 @@ EXCLUDE_EXACT = {  # lower-cased channel name -> reason
     "veed studio": "tool vendor's official channel",
 }
 
+# A Blotato link with a referral parameter in any upload description marks an existing affiliate.
+AFFILIATE = re.compile(r"blotato\.com\S*?[?&](?:ref|via|fpr|aff|affiliate|referral)=([\w-]+)", re.I)
+
 TOP_N = 10
 CSV_COLUMNS = ["tier", "channel_id", "channel_name", "channel_url", "subscribers",
                "relevant_videos", "first_video_date", "latest_video_date", "best_video_title",
@@ -70,6 +73,11 @@ def span_days(videos):
     return (max(dates) - min(dates)).days if dates else 0
 
 
+def affiliate_refs(ch):
+    """Referral codes found in Blotato links across the channel's uploads."""
+    return sorted({m.group(1) for v in ch.get("uploads", []) for m in AFFILIATE.finditer(v.get("description", ""))})
+
+
 def excluded(ch):
     name = ch.get("channel_name", "")
     if EXCLUDE_NAME.search(name):
@@ -85,6 +93,9 @@ def filter_channel(ch):
         return tier, [], excluded(ch)
     if tier == 1:
         vids = blotato_videos(ch)
+        refs = affiliate_refs(ch)
+        if refs:
+            return tier, vids, f"already a Blotato affiliate (ref={', '.join(refs)})"
         if len(vids) < 2:
             return tier, vids, "fewer than 2 Blotato videos"
         if span_days(vids) < 90:
@@ -226,6 +237,7 @@ def main():
         reasons = {}
         for d in log[t]["dropped"]:
             key = re.sub(r"\d+ days", "N days", re.sub(r"only \d+ topic", "only N topic", d["reason"]))
+            key = re.sub(r" \(ref=.*\)", "", key)
             reasons[key] = reasons.get(key, 0) + 1
         for k, n in sorted(reasons.items(), key=lambda x: -x[1]):
             print(f"   {n:4d}  {k}")

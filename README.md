@@ -4,7 +4,9 @@ Finds YouTube creators who could partner with Blotato, scores them, and drafts a
 the top 10 in each tier. **Nothing is ever sent.** Every invite is a draft for a person to review.
 
 - **Tier 1, Blotato users:** creators who have made Blotato content for 3+ months
-  (2+ Blotato videos, first and latest at least 90 days apart).
+  (2+ Blotato videos, first and latest at least 90 days apart) and **aren't already affiliates**.
+  Any upload description with a Blotato referral link (`blotato.com/?ref=...`, `via=`, `fpr=` and
+  similar) marks an existing affiliate, and the channel is dropped.
 - **Tier 2, adjacent creators:** creators with 1,000+ subscribers who regularly teach social media
   automation (3+ topic videos in their latest 50 uploads, spread over 90+ days) but haven't made a
   Blotato video. Any Blotato video makes a channel Tier 1.

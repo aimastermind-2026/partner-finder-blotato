@@ -34,6 +34,21 @@ def test_tier1_blotato_videos_120_days_apart_kept():
     assert score.filter_channel(ch)[2] is None
 
 
+def test_tier1_existing_affiliate_dropped():
+    ch = channel(uploads=[
+        video("a", "Blotato tutorial", 10, description="Try it: https://blotato.com/?ref=sam"),
+        video("b", "Blotato with n8n", 130)])
+    tier, _, reason = score.filter_channel(ch)
+    assert tier == 1 and reason == "already a Blotato affiliate (ref=sam)"
+
+
+def test_plain_blotato_link_is_not_affiliate():
+    ch = channel(uploads=[
+        video("a", "Blotato tutorial", 10, description="Templates: https://blotato.com/api/templates"),
+        video("b", "Blotato with n8n", 130)])
+    assert score.filter_channel(ch)[2] is None
+
+
 def test_any_blotato_video_makes_tier1_even_if_found_by_tier2_search():
     ch = channel(found_by=("tier2",), uploads=[
         video("a", "n8n social media automation", 5),
